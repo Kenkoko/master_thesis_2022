@@ -5,24 +5,27 @@
 
 % To consider the big picture, we will do a literature review to look at the research done in relation prediction. The concrete output should be an overview of the field: models, datasets, training techniques, evaluation, applications, and use cases. The focus is on models that can make relation predictions - answering the question $(s,?,o)$.
 
-A Knowledge Graph is .....
+\section{Knowledge Graph embedding: Models, Training, Evaluation}
 
-\noindent\textbf{Knowledge Graph Embedding Models}. 
+Given a set $\mathcal{E}$ of entities and a set $\mathcal{R}$ of relations, all of facts in a knowledge graph $\mathcal{G}$ could be encoded to a set of subject-predicate-objects $(s,p,o)$ triplets where $s, o \in \mathcal{E}$ and $p \in \mathcal{R}$, Therefore, a knowledge graph is $\mathcal{G} \subseteq \mathcal{E} \times \mathcal{R} \times \mathcal{E}$.
+
+KGE models are typically trained 
+
+
+\noindent\textbf{Knowledge Graph Embedding Models}. KGE models are typically trained and evaluated in the context of multi-relational link prediction for knowledge graphs (KG). KGE model associates with each entity i 2 E and relation
+k 2 R an embedding
 \newline
-\noindent\textbf{Scoring Function}.
+\noindent\textbf{Scoring Function}. KGE model architectures differ in their scoring function.
 \newline
-\noindent\textbf{Training objective}.
+\noindent\textbf{Training objective}. There are three commonly used approaches to train KGE models, which differ
+mainly in the way negative examples are generated. First, training with negative sampling
+
+\section{Relation prediction studies}
+\noindent\textbf{Relation prediction}. In term of relation prediction, unfortunately, there is a limited number of papers studying relation prediction. Table \ref{tab:Papers from top conferences} shows 12 papers that I considered they are related to relation prediction. All those papers are from top conferences (e.g., AAAI, NAACL, AKBC, etc.) and the conference ranking was conducted by \textit{The Computing Research and Education Association of Australasia (CORE Inc)} \footnote{CORE Inc: http://portal.core.edu.au/conf-ranks/}
 
 
-\noindent In term of relation prediction, unfortunately, there is a limited number of papers studying relation prediction. Table \ref{tab:Papers from top conferences} shows 12 papers that I considered they are related to relation prediction. All those papers are from top conferences (e.g., AAAI, NAACL, AKBC, etc.) and the conference ranking was conducted by \textit{The Computing Research and Education Association of Australasia (CORE Inc)} \footnote{CORE Inc: http://portal.core.edu.au/conf-ranks/}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-% \usepackage{multirow}
 \begin{table}[!htbp]
 \centering
-\caption{Papers from top conferences}
-\label{tab:Papers from top conferences}
 \resizebox{\textwidth}{!}
 {
 \begin{tabular}{@{}clP{0.5\textwidth}ccP{0.3\textwidth}P{0.3\textwidth}@{}}
@@ -120,18 +123,18 @@ A Knowledge Graph is .....
   As a typical evaluation tasks \\ \bottomrule
 \end{tabular}
 }
+\caption{Papers from top conferences}
+\label{tab:Papers from top conferences}
 \end{table}
 
 As can be seen from Table \ref{tab:Papers from top conferences}, relation prediction, in most papers, related to relation prediction was considered as an additional task along with entity prediction in evaluation protocol. \citet{yao2019kg} evaluated their proposed model - KGE-BERT by performing relation prediction on FB15K dataset along with entity prediction and triple classification. \citet{shi2017proje} also performed relation prediction and entity prediction tasks when evaluating the performance of their proposed model - ProjE on FB15K dataset \citep{NIPS2013_1cecc7a7}. \citet{Xie_Liu_Jia_Luan_Sun_2016, xie2016representation} also decided to use relation prediction and entity prediction as their two main tasks to evaluate the performance of TKRL and DKRL models in the FB15K dataset. Relation prediction is not the primary task to propose new models in most papers; it was considered an additional task to evaluate with the entity prediction. This observation can also be observed by \citet{chang2020benchmark}.
 
 However, there is a paper (paper 4) that considers relation prediction as their main objective. \citet{cui2021type} utilized description of entity and relation to embedding them and proposed a model - TaRP to embed KG using description. The model was trained on Hits@1 on relation prediction.
 
-\section{Dataset}
+\noindent\textbf{Dataset}
 
 \begin{table}[!htbp]
 \centering
-\caption{Dataset in relation prediction papers}
-\label{tab:Dataset in relation prediction papers}
 \resizebox{\textwidth}{!}
 {
 \begin{tabular}{llccc@{}}
@@ -153,8 +156,10 @@ However, there is a paper (paper 4) that considers relation prediction as their 
 14 & Kinships \citep{ICML-2007-KokD}   & 104      & 26    & 1 \\ \bottomrule
 \end{tabular}
 }
+\caption{Dataset in relation prediction papers}
+\label{tab:Dataset in relation prediction papers}
 \end{table}
 
-\section{Metrics}
+\noindent\textbf{Metrics}
 
-\section{KGE models}
+\noindent\textbf{Models}

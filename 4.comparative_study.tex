@@ -9,20 +9,19 @@ In this chapter, the performance of models in relation prediction will be evalua
 Table \ref{tab:AKBC relation prediction} shows the performance of the best models in relation prediction. 
 \begin{table}[!htbp]
 \centering
-\caption{}
-\label{tab:AKBC relation prediction}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lllllllllll@{}}
+\begin{tabular}{@{}lllccccccccc@{}}
 \toprule
-Dataset   & Entity Prediction & Relation Prediction & \multicolumn{4}{c}{Entity}                                        & \multicolumn{4}{c}{Relation}                                      \\
-          &                   &                     & MRR            & Hits@1         & Hits@3         & Hits@10        & MRR            & Hits@1         & Hits@3         & Hits@10        \\ \midrule
-FB15K-237 & Yes               & No                  & 0.372          & 0.278          & 0.409          & 0.563          & 0.940          & 0.913          & 0.961          & 0.987          \\
-          & Yes               & Yes                 & \textbf{0.389} & \textbf{0.299} & \textbf{0.424} & \textbf{0.567} & \textbf{0.974} & \textbf{0.957} & \textbf{0.992} & 0.997          \\
-          & No                & Yes                 & 0.262          & 0.187          & 0.287          & 0.407          & 0.972          & 0.954          & 0.991          & \textbf{0.997} \\ \midrule
-WN18RR    & Yes               & No                  & 0.486          & 0.444          & \textbf{0.498} & 0.571          & \textbf{0.823} & \textbf{0.766} & \textbf{0.850} & 0.987          \\
-          & Yes               & Yes                 & \textbf{0.486} & \textbf{0.446} & 0.497          & \textbf{0.573} & 0.818          & 0.756          & 0.847          & 0.980          \\
-          & No                & Yes                 & 0.141          & 0.083          & 0.182          & 0.243          & 0.463          & 0.306          & 0.436          & \textbf{0.988} \\ \bottomrule
-
+          &                   &                     & \multicolumn{4}{c}{Entity}                                        &  & \multicolumn{4}{c}{Relation}                                      \\ \cmidrule(lr){4-7} \cmidrule(l){9-12} 
+Dataset   & Entity Prediction & Relation Prediction & MRR            & Hits@1         & Hits@3         & Hits@10        &  & MRR            & Hits@1         & Hits@3         & Hits@10        \\ \midrule
+FB15K-237 & Yes               & No                  & 0.372          & 0.278          & 0.409          & 0.563          &  & 0.940          & 0.913          & 0.961          & 0.987          \\
+          & Yes               & Yes                 & \textbf{0.389} & \textbf{0.299} & \textbf{0.424} & \textbf{0.567} &  & \textbf{0.974} & \textbf{0.957} & \textbf{0.992} & \textbf{0.997} \\
+          & No                & Yes                 & 0.262          & 0.187          & 0.287          & 0.407          &  & 0.972          & 0.954          & 0.991          & 0.997          \\ \midrule
+WN18RR    & Yes               & No                  & 0.486          & 0.444          & \textbf{0.498} & 0.571          &  & \textbf{0.823} & \textbf{0.766} & \textbf{0.850} & 0.987          \\
+          & Yes               & Yes                 & \textbf{0.486} & \textbf{0.446} & 0.497          & \textbf{0.573} &  & 0.818          & 0.756          & 0.847          & 0.980          \\
+          & No                & Yes                 & 0.141          & 0.083          & 0.182          & 0.243          &  & 0.463          & 0.306          & 0.436          & \textbf{0.988} \\ \bottomrule
 \end{tabular}%
 }
+\caption{}
+\label{tab:AKBC relation prediction}
 \end{table}

@@ -14,8 +14,6 @@ In the paper, \citet{chen2021relation} conducted experiments on the ComplEx mode
 
 \begin{table}[!htbp]
 \centering
-\caption{Grid Search \citep{chen2021relation}}
-\label{tab:AKBC grid search}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllll@{}}
 \toprule
@@ -24,13 +22,13 @@ FB15k-237        & \{200, 1000, 2000\} & \{0.1, 0.01\} & \{100, 500, 1000\} & \{
 WN18RR           & \{200, 1000, 2000\} & \{0.1, 0.01\} & \{100, 500, 1000\} & \{0.005, 0.01, 0.05, 0.1, 0.5, 1\}            \\ \bottomrule
 \end{tabular}%
 }
+\caption{Grid Search \citep{chen2021relation}}
+\label{tab:AKBC grid search}
 \end{table}
 
 
 \begin{table}[!htbp]
 \centering
-\caption{The best ComplEx configurations found by \citet{chen2021relation}}
-\label{tab:AKBC best models}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllllllll@{}}
 \toprule
@@ -43,6 +41,8 @@ WN18RR    & Yes               & No                  & 2000       & 0.10        &
           & No                & Yes                 & 2000       & 0.10        & 500  & 0.5    & NA         & 0.257945 \\ \bottomrule
 \end{tabular}%
 }
+\caption{The best ComplEx configurations found by \citet{chen2021relation}}
+\label{tab:AKBC best models}
 \end{table}
 
 
@@ -61,21 +61,21 @@ As can be seen, there were huge differences between models from the \citet{chen2
 
 \begin{table}[!htbp]
 \centering
-\caption{Reproduction results of the best models of \citet{chen2021relation} using LibKGE}
-\label{tab:best config from AKBC}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lllllllllll}
-\hline
-Dataset   & Entity Prediction & Relation Prediction & \multicolumn{4}{c}{\parbox[t]{5cm}{\centering Entity Ranking from \citet{chen2021relation}'s code base} \vspace{0.1cm}} & \multicolumn{4}{c}{Entity Ranking from LibKGE} \\
-          &                   &                     & MRR    & Hits@1 & Hits@3 & Hits@10 & MRR       & Hits@1    & Hits@3    & Hits@10    \\ \hline
-FB15K-237 & Yes               & No                  & 0.366  & 0.271  & 0.401  & 0.557   & 0.357     & 0.266     & 0.392     & 0.540      \\
-          & Yes               & Yes                 & 0.388  & 0.298  & 0.425  & 0.568   & 0.362     & 0.272     & 0.397     & 0.546      \\
-          & No                & Yes                 & 0.263  & 0.187  & 0.287  & 0.411   & 0.261     & 0.187     & 0.283     & 0.408      \\ \hline
-WN18RR    & Yes               & No                  & 0.487  & 0.441  & 0.501  & 0.58    & 0.475     & 0.438     & 0.489     & 0.552      \\
-          & Yes               & Yes                 & 0.488  & 0.443  & 0.505  & 0.578   & 0.475     & 0.437     & 0.490     & 0.550      \\
-          & No                & Yes                 & 0.258  & 0.212  & 0.29   & 0.339   & 0.430     & 0.384     & 0.454     & 0.511      \\ \hline
+\begin{tabular}{@{}lllccccccccc@{}}
+\toprule
+          &                   &                     & \multicolumn{4}{c}{\parbox[t]{5cm}{\centering Entity Ranking from \citet{chen2021relation}'s code base} \vspace{0.1cm}} &  & \multicolumn{4}{c}{Entity Ranking from LibKGE} \\ \cmidrule(lr){4-7} \cmidrule(l){9-12}
+Dataset   & Entity Prediction & Relation Prediction & MRR    & Hits@1 & Hits@3 & Hits@10 &  & MRR       & Hits@1    & Hits@3    & Hits@10   \\ \midrule
+FB15K-237 & Yes               & No                  & 0.373  & 0.279  & 0.410  & 0.563   &  & 0.357     & 0.266     & 0.392     & 0.540      \\
+          & Yes               & Yes                 & 0.393  & 0.302  & 0.430  & 0.573   &  & 0.362     & 0.272     & 0.397     & 0.546      \\
+          & No                & Yes                 & 0.267  & 0.189  & 0.293  & 0.418   &  & 0.261     & 0.187     & 0.283     & 0.408      \\ \midrule
+WN18RR    & Yes               & No                  & 0.489  & 0.447  & 0.575  & 0.501   &  & 0.475     & 0.438     & 0.489     & 0.552      \\
+          & Yes               & Yes                 & 0.491  & 0.450  & 0.576  & 0.505   &  & 0.475     & 0.437     & 0.490     & 0.550      \\
+          & No                & Yes                 & 0.264  & 0.219  & 0.295  & 0.345   &  & 0.430     & 0.384     & 0.454     & 0.511      \\ \bottomrule
 \end{tabular}%
 }
+\caption{Reproduction results of the best models of \citet{chen2021relation} using LibKGE}
+\label{tab:best config from AKBC}
 \end{table}
 
 \subsection{Random Hyper-parameter search}
@@ -84,30 +84,49 @@ The hyper-parameter searching space was conducted using a random search with the
 
 \begin{table}[!htbp]
 \centering
-\caption{Open hyper-parameter search to find \cite{chen2021relation}'s best models}
-\label{tab:open-search}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lllll@{}}
+\begin{tabular}{@{}llllll@{}}
 \toprule
-\multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{2}{c}{WN18RR}                                & \multicolumn{2}{c}{FB15k-237}                                       \\
-\multicolumn{1}{c}{}                         & \citet{chen2021relation}            & LibKGE              & \citet{chen2021relation}                      & LibKGE              \\ \midrule
-\textit{d}                                   & \{200, 1000, 2000\}                 & \{200, 1000, 2000\} & \{200, 1000, 2000\}                           & \{200, 1000, 2000\} \\
-\textit{lr}                                  & \{0.1, 0.01\}                       & {[}0.01, 0.1{]}     & \{0.1, 0.01\}                                 & {[}0.01, 0.1{]}     \\
-\textit{bsz}                                 & \{100, 500, 1000\}                  & \{100, 500, 1000\}  & \{100, 500, 1000\}                            & \{100, 500, 1000\}  \\
-\textit{reg}                                 & \{0.005, 0.01, 0.05, 0.1, 0.5, 1\}  & {[}0.001, 1{]}      & \{0.0005, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 0\} & {[}0.0005, 1{]}      \\
-$\lambda$                                    & \{0.005, 0.001, 0.05, 0.1, 0.5, 1\} & {[}0.005, 1{]}      & \{0.125, 0.25, 0.5, 1, 2, 4\}                 & {[}0.125, 4{]}        \\ \bottomrule
+\multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{2}{c}{WN18RR}                                &  & \multicolumn{2}{c}{FB15k-237}                                       \\ \cmidrule(lr){2-3} \cmidrule(l){5-6} 
+\multicolumn{1}{c}{}                         & \citet{chen2021relation}            & LibKGE              &  & \citet{chen2021relation}                      & LibKGE              \\ \midrule
+\textit{d}                                   & \{200, 1000, 2000\}                 & \{200, 1000, 2000\} &  & \{200, 1000, 2000\}                           & \{200, 1000, 2000\} \\
+\textit{lr}                                  & \{0.1, 0.01\}                       & {[}0.01, 0.1{]}     &  & \{0.1, 0.01\}                                 & {[}0.01, 0.1{]}     \\
+\textit{bsz}                                 & \{100, 500, 1000\}                  & \{100, 500, 1000\}  &  & \{100, 500, 1000\}                            & \{100, 500, 1000\}  \\
+\textit{reg}                                 & \{0.005, 0.01, 0.05, 0.1, 0.5, 1\}  & {[}0.001, 1{]}      &  & \{0.0005, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 0\} & {[}0.0005, 1{]}      \\
+$\lambda$                                    & \{0.005, 0.001, 0.05, 0.1, 0.5, 1\} & {[}0.005, 1{]}      &  & \{0.125, 0.25, 0.5, 1, 2, 4\}                 & {[}0.125, 4{]}        \\ \bottomrule
 \end{tabular}%
 }
+\caption{Open hyper-parameter search to find \cite{chen2021relation}'s best models}
+\label{tab:open-search}
 \end{table}
 
-\section{The differences in the two codebases}
+\section{Reproducing}
 
 There are two main differences between the two code bases; instead of training ComplEx directly on the original dataset, the models were trained with reciprocal triples included in the dataset \citep{chen2021relation}. Furthermore, there is a difference in regularization implementation.
 
 
+\begin{table}[!htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllccccccccc@{}}
+\toprule
+          &                   &                     & \multicolumn{4}{c}{\parbox[t]{5cm}{\centering Entity Ranking from \citet{chen2021relation}'s code base} \vspace{0.1cm}} &  & \multicolumn{4}{c}{Entity Ranking from LibKGE} \\ \cmidrule(lr){4-7} \cmidrule(l){9-12}
+Dataset   & Entity Prediction & Relation Prediction & MRR    & Hits@1 & Hits@3 & Hits@10 &  & MRR       & Hits@1    & Hits@3    & Hits@10   \\ \midrule
+FB15K-237 & Yes               & No                  & 0.373  & 0.279  & 0.410  & 0.563   &  & 0.372     & 0.278     & 0.407     & 0.562     \\
+          & Yes               & Yes                 & 0.393  & 0.302  & 0.430  & 0.573   &  & 0.391     & 0.300     & 0.428     & 0.572     \\
+          & No                & Yes                 & 0.267  & 0.189  & 0.293  & 0.418   &  & 0.264     & 0.187     & 0.287     & 0.415     \\ \midrule
+WN18RR    & Yes               & No                  & 0.489  & 0.447  & 0.575  & 0.501   &  & 0.485     & 0.444     & 0.498     & 0.567     \\
+          & Yes               & Yes                 & 0.491  & 0.450  & 0.576  & 0.505   &  & 0.491     & 0.451     & 0.502     & 0.572     \\
+          & No                & Yes                 & 0.264  & 0.219  & 0.295  & 0.345   &  & 0.001     & 0.000     & 0.001     & 0.001     \\ \bottomrule
+\end{tabular}%
+}
+\caption{Reproduction results of the best models of \citet{chen2021relation} using LibKGE after applying changes}
+\label{tab:Successfully reproducing}
+\end{table}
+
 \subsection{Reciprocal relations}
 
-\noindent\textbf{Including reciprocal triplets}
+\noindent\textbf{Including reciprocal triplets.}
 The reciprocal relations technique was introduced by \citet{kazemi2018simple} and \citet{lacroix2018canonical} to decrease computational cost, and it may lead to better performance \citep{lacroix2018canonical}. The key idea is that instead of using the same scoring function to predict object \textit{(s,p,?)} and subject \textit{(?,p,o)}, the prediction is made by two separate scoring functions, one for the prediction of objects and one for the prediction of subjects. To achieve that, both scoring functions share the same entity embeddings; however, they do not share the same relation embedding (i.e., each relation contains two embeddings).
 
 In order to apply the reciprocal relation technique, \citet{chen2021relation} intentionally modified the training dataset as follows (for details of implementation, see Appendix \ref{sec:AKBC Reciprocal dataset}): (1) the original dataset is duplicated, (2) those object entities of the duplicated dataset was swapped for the subject entities, finally (3), the relation ids of those triplets are shifted to new ids by adding the number of relations. Therefore, the number of subject and object entities examined in one epoch is double than a dataset without reciprocal triplets. Due to duplication, their models are trained only on object prediction, that is, answering \textit{(s,p,?)}
@@ -124,42 +143,41 @@ When applying the reciprocal relation technique, we introduce two different embe
 \subsection{Regularization implementation}
 
 
-\noindent\textbf{The nuclear 3-norm.} Instead of scaling them one-third as in Equation \ref{eq:n3}, \citet{chen2021relation} omitted them and decided to use only the sum. While in LibKGE, the formula is preserved as it is; thus, it implies that entities and relation embeddings in their code base are regularized thrice as much as in LibKGE.
+\noindent\textbf{The nuclear 3-norm.} Instead of scaling them one-third as in Equation \ref{eq:minization function}, \citet{chen2021relation} omitted them and decided to use only the sum. While in LibKGE, the formula is preserved as it is; thus, it implies that entities and relation embeddings in their code base are regularized thrice as much as in LibKGE.
 
-Based on these observations from the reciprocal relation and the N3 implementation, the regularization weight of entity embedding and relation embeddings should be 6 times for entity and 3 times for relation. The table \ref{tab:Reg for emb} shows the equivalence between those two code bases.
+Based on these observations from the reciprocal relation and the N3 implementation, the regularization weight of entity embedding and relation embeddings should be 6 times for entity and 3 times for relation. The table \ref{tab:Reg for emb} shows the equivalence of regularization weights in two codebases.
 \newline
 
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
+
 \begin{table}[!htbp]
 \centering
-\caption{Equivalence of regularization weights in two codebases}
-\label{tab:Reg for emb}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lllcccc}
-\hline
-Dataset   & Entity Prediction & Relation Prediction & \multicolumn{2}{c}{\citet{chen2021relation}}                                      & \multicolumn{2}{c}{LibKGE}                                \\
-          &                   &                     & \multicolumn{1}{l}{Entity} & \multicolumn{1}{l}{Relation} & \multicolumn{1}{l}{Entity} & \multicolumn{1}{l}{Relation} \\ \hline
-FB15K-237 & Yes               & No                  & 0.05                       & 0.05                         & 0.3                        & 0.15                         \\
-          & Yes               & Yes                 & 0.05                       & 0.05                         & 0.3                        & 0.15                         \\
-          & No                & Yes                 & 0.0005                     & 0.0005                       & 0.003                      & 0.0015                       \\ \hline
-WN18RR    & Yes               & No                  & 0.1                        & 0.1                          & 0.6                        & 0.3                          \\
-          & Yes               & Yes                 & 0.1                        & 0.1                          & 0.6                        & 0.3                          \\
-          & No                & Yes                 & 0.5                        & 0.5                          & 3.0                        & 1.5                          \\ \hline
+\begin{tabular}{@{}lllcclcc@{}}
+\toprule
+          &                   &                     & \multicolumn{2}{c}{\citet{chen2021relation}} &  & \multicolumn{2}{c}{LibKGE} \\ \cmidrule(lr){4-5} \cmidrule(l){7-8} 
+Dataset   & Entity Prediction & Relation Prediction & Entity   & Relation  &  & Entity      & Relation     \\ \midrule
+FB15K-237 & Yes               & No                  & 0.05     & 0.05      &  & 0.3         & 0.15         \\
+          & Yes               & Yes                 & 0.05     & 0.05      &  & 0.3         & 0.15         \\
+          & No                & Yes                 & 0.0005   & 0.0005    &  & 0.003       & 0.0015       \\ \midrule
+WN18RR    & Yes               & No                  & 0.1      & 0.1       &  & 0.6         & 0.3          \\
+          & Yes               & Yes                 & 0.1      & 0.1       &  & 0.6         & 0.3          \\
+          & No                & Yes                 & 0.5      & 0.5       &  & 3.0         & 1.5          \\ \bottomrule
 \end{tabular}%
 }
+\caption{Equivalence of regularization weights in two codebases}
+\label{tab:Reg for emb}
 \end{table}
 
 
-\noindent\textbf{Regularizing Complex embedding vectors.} In LibKGE, we regularize the entities and relations directly on embedding vectors \citep{Ruffinelli2020You}. However, in \citet{chen2021relation} and \citet{lacroix2018canonical} codebases, the entity and relation embeddings of ComplEx model are normalized by L2-norm before being regularized by the L2 or N3 regularization. 
+\noindent\textbf{Regularizing complex embedding vectors.} In LibKGE, we regularize the entities and relations directly on embedding vectors \citep{Ruffinelli2020You}. However, in \citet{chen2021relation} and \citet{lacroix2018canonical} codebases, the entity and relation embeddings of ComplEx model are normalized by L2-norm before being regularized by the L2 or N3 regularization. 
 
 L3 or N3 regularization of a embedding vector $u$ is a norm of a vector which is defined as:
 \begin{equation}
     \label{eq:N3}
     \|u \|^3_p = \sum_{j=1}^{n_d}|u_j|^3
-\end{equation} 
+\end{equation}
 
-For the ComplEx model, a embedding vector is a complex vector $u \in \mathbb{C}^K$ which is composed of a real vector component and an imaginary vector component. Let denote $u_j = u'_j + iu''_j$. Therefore the norm of a complex number is defined as $|u_j| = \sqrt{{u'}_j^2 + {u''}_j^2}$. Put it into Formula \ref{eq:N3}, we have:
+For the ComplEx model, a embedding vector is a complex vector $u \in \mathbb{C}^K$ which is composed of a real vector component and an imaginary vector component. Let denote $u_j = u'_j + iu''_j$. Therefore the norm of a complex number is defined as $|u_j| = \sqrt{{u'}_j^2 + {u''}_j^2}$. Therefore, the N3 regularization of a complex vector is defined:
 \begin{equation}
     \label{eq:final}
     \|u \|^3_p = \sum_{j=1}^{n_d}|u_j|^3 = \sum_{j=1}^{n_d}\left(\sqrt{{u'}_j^2 + {u''}_j^2}\right)^3
