@@ -1,0 +1,47 @@
+\chapter{Introduction}
+\label{cha:intro}
+Nowadays, most of real-world information such as social, biological information can be well encoded into graphs \citep{lu2011link}. Each vertex represents an entity, an object, or a biological element (proteins, genes, etc.), while each edge represents a relation or an interaction between entities. Those graphs can be thought of as Knowledge Graphs (KGs), and each connection between two entities is a \textit{fact}. Formally, a \textit{fact} is a tuple that contains two entities and their relation denoted as $(s,p,o)$, e.g., \textit{(Berlin, isCapitalOf, Germany)}. \textit{Berlin} is subject entity ($s$), \textit{Germany} is object entity ($o$) and their relation/predicate ($p$) is \textit{isCapitalOf}.
+
+Unfortunately, KGs such as biological networks \citep{amaral2008truer, stumpf2008estimating, yu2008high}, contain numerous undiscovered relations between two entities. This is essential since existing knowledge graphs are often missing many facts, and some of the edges they contain are incorrect \citep{angeli2013philosophers}. 
+% Therefore, several studies \citep{nickel2011three, lao2010relational, dong2014knowledge, socher2013reasoning}, have proposed different models to predict the existence of a relation between two entities.  
+
+% There are two approaches to adding missing relation \citep{wang2017knowledge}: (1) predicting a missing entity based on a given entity and relation - \textit{entity prediction}, and (2) directly predicting the relation between two entities - \textit{relation prediction}.
+In KG, adding missing relation between two entities is typically referred to as predicting an entity with a specific relation with another given entity \citep{wang2017knowledge}. This task is entity prediction \citep{lin2015modeling} and has been tested extensively in previous literature \citep{bordes2013translating, lin2015learning, nickel2016holographic, wang2014knowledge}. Besides that, directly predicting the existence of a relation between two given entities can also be used to add missing relation between two entities. That task is called relation prediction \citep{lin2015modeling, xie2016representation}. 
+Formally, the difference between entity prediction and relation prediction would be the model's questions: for entity prediction, the model tries to answer $(s,p,?)$. In contrast, the relation prediction model tries to answer $(s,?,o)$. 
+
+Most KGE models can perform both entity and relation predictions \citep{wang2017knowledge}; e.g., RESCAL \citep{nickel2011three}, TransE \citep{bordes2013translating}, ComplEx \citep{trouillon2016complex}, TuckER \citep{balazevic-etal-2019-tucker}, RotatE \citep{sun2019rotate}, and many more. However, in most KGE studies \citep{yang2014embedding, wang2014knowledge, trouillon2016complex, shang2018endtoend, sun2019rotate}, entity prediction is the main task for training, comparing, and testing the performance of models, while relation prediction does not get enough attention \citep{chang2020benchmark}. 
+
+In Biomedical Knowledge Graph, \citet{chang2020benchmark} pointed the importance of relation prediction in evaluating Knowledge Graph Embedding models. By evaluating KGE models on relation prediction, the ability of capturing information about relations in the knowledge graph could be measured \citep{chang2020benchmark}. Additionally, with relation prediction, the models' relation representations could directly be evaluated based on model prediction \citep{chang2020benchmark}. 
+
+Furthermore, \citet{chen2021relation} showed that by using relation prediction as an auxiliary training objective, the models could perform better than using only entity ranking. The table \ref{tab:AKBC results} shows that by using the entity ranking with relation prediction, the ComplEx models could outperform the results found by \citet{Ruffinelli2020You} in terms of entity ranking. However, \citet{chen2021relation} reported the evaluation in entity ranking, and models were selected based on the Mean Reciprocal Rank (MRR) of entity ranking. The relation prediction performance of MRR and Hits@K (Hit ratios of the top-K ranked results) was not reported. 
+
+Therefore, it is essential to (1) conduct a comparative study to analyze the impact of relation prediction on and KGE pipeline and (2) evaluate the performance of KGE models on relation prediction. Thus, the goals of the thesis are:
+\begin{enumerate}
+    \item The relation prediction performance of models in a similar settings
+    \item The impact relation prediction on KGE pipeline in:
+    \begin{enumerate}
+        \item Model selection: 
+        \item Training objective:
+    \end{enumerate}
+\end{enumerate}
+
+Finally, we identify which training methods or modeling techniques we can add/develop to improve relation prediction (Section).
+
+\begin{table}[!htbp]
+\centering
+\caption{The best results of ComplEx found by \citet{chen2021relation}}
+\label{tab:AKBC results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+\textbf{Dataset}   & \textbf{Entity Prediction} & \textbf{Relation Prediction} & \textbf{MRR}   & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@10} \\ \midrule
+\textbf{FB15K-237} & Yes                        & No                           & 0.366          & 0.271           & 0.401           & 0.557            \\
+                   & Yes                        & Yes                          & \textbf{0.388} & \textbf{0.298}  & \textbf{0.425}  & \textbf{0.568}   \\
+                   & No                         & Yes                          & 0.263          & 0.187           & 0.287           & 0.411            \\  \midrule
+\textbf{WN18RR}    & Yes                        & No                           & 0.487          & 0.441           & 0.501           & 0.580            \\
+                   & Yes                        & Yes                          & \textbf{0.488} & \textbf{0.443}  & \textbf{0.505}  & \textbf{0.578}   \\
+                   & No                         & Yes                          & 0.258          & 0.212           & 0.290           & 0.339            \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+

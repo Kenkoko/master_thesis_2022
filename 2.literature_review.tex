@@ -1,0 +1,160 @@
+
+\chapter{Background and Literature review}
+
+
+
+% To consider the big picture, we will do a literature review to look at the research done in relation prediction. The concrete output should be an overview of the field: models, datasets, training techniques, evaluation, applications, and use cases. The focus is on models that can make relation predictions - answering the question $(s,?,o)$.
+
+A Knowledge Graph is .....
+
+\noindent\textbf{Knowledge Graph Embedding Models}. 
+\newline
+\noindent\textbf{Scoring Function}.
+\newline
+\noindent\textbf{Training objective}.
+
+
+\noindent In term of relation prediction, unfortunately, there is a limited number of papers studying relation prediction. Table \ref{tab:Papers from top conferences} shows 12 papers that I considered they are related to relation prediction. All those papers are from top conferences (e.g., AAAI, NAACL, AKBC, etc.) and the conference ranking was conducted by \textit{The Computing Research and Education Association of Australasia (CORE Inc)} \footnote{CORE Inc: http://portal.core.edu.au/conf-ranks/}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{multirow}
+\begin{table}[!htbp]
+\centering
+\caption{Papers from top conferences}
+\label{tab:Papers from top conferences}
+\resizebox{\textwidth}{!}
+{
+\begin{tabular}{@{}clP{0.5\textwidth}ccP{0.3\textwidth}P{0.3\textwidth}@{}}
+\toprule
+\multicolumn{1}{l}{\textbf{}} &
+  \multicolumn{1}{c}{\textbf{Type}} &
+  \multicolumn{1}{c}{\textbf{Paper}} &
+  \textbf{Year} &
+  \textbf{Conference} &
+  \textbf{Relation Prediction} &
+  \textbf{Motivation} \\ \midrule
+\textbf{1} &
+  \textbf{Objective} &
+  \textbf{Relation Prediction as an Auxiliary Training Objective for Improving Multi-Relational Graph Representations} &
+  \textbf{2021} &
+  \textbf{AKBC} &
+  \textbf{As Auxiliary Training Object} &
+  \textbf{To Improve performance on standard Entity Ranking} \\
+2 &
+  Evaluation &
+  Benchmark and Best Practices for Biomedical Knowledge Graph Embeddings &
+  2020 &
+  ACL* &
+  Should be included with standard entity ranking &
+  A new standard way to evaluate model \\
+3 &
+  Application &
+  Strong Baselines for Simple Question Answering over Knowledge Graphs with and without Neural Networks &
+  2018 &
+  NAACL &
+  A subtask in Question and Answering problem &
+  To Identify the relation being queried in QA \\
+\textbf{4} &
+  \textbf{Prediction} &
+  \textbf{Type-augmented Relation Prediction in Knowledge Graphs} &
+  \textbf{2021} &
+  \textbf{AAAI*} &
+  \textbf{Type information and instance-level information are encode}d &
+  \textbf{To improve performance on relation prediction} \\
+5 &
+  Evaluation &
+  Representation Learning of Knowledge Graphs with Entity Descriptions &
+  2016 &
+  AAAI* &
+  \multirow{6}{*}{\parbox[t]{\linewidth}{\vspace{2cm}A subtask in evaluation protocol}} &
+  \multirow{6}{*}{\parbox[t]{\linewidth}{\vspace{2cm}As a part of the graph completion task}} \\
+6 &
+  Evaluation &
+  Representation Learning of Knowledge Graphs with Hierarchical Types &
+  2016 &
+  IJCAI &
+   &
+   \\
+7 &
+  Evaluation &
+  Modeling Relation Paths for Representation Learning of Knowledge Bases &
+  2015 &
+  EMNLP &
+   &
+   \\
+8 &
+  Evaluation &
+  ProjE: Embedding Projection for Knowledge Graph Completion &
+  2017 &
+  AAAI* &
+   &
+   \\
+9 &
+  Evaluation &
+  Shared Embedding Based Neural Networks for Knowledge Graph Completion &
+  2018 &
+  CIKM &
+   &
+   \\
+10 &
+  Evaluation &
+  KG-BERT: BERT for Knowledge Graph Completion &
+  2019 &
+  AAAI* &
+   &
+   \\
+\textbf{11} &
+  \textbf{Prediction} &
+  \textbf{Multi-relational Link Prediction in Heterogeneous Information Networks} &
+  \textbf{2011} &
+  \textbf{IEEE} &
+  \textbf{As a main focus} &
+  \textbf{To predict relationships, uncover relationships that probably exist but have not been observed} \\
+12 &
+  Evaluation &
+  Reliable Knowledge Graph Path Representation Learning &
+  2020 &
+  IEEE &
+  As a subtask in evaluation protocol &
+  As a typical evaluation tasks \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+
+As can be seen from Table \ref{tab:Papers from top conferences}, relation prediction, in most papers, related to relation prediction was considered as an additional task along with entity prediction in evaluation protocol. \citet{yao2019kg} evaluated their proposed model - KGE-BERT by performing relation prediction on FB15K dataset along with entity prediction and triple classification. \citet{shi2017proje} also performed relation prediction and entity prediction tasks when evaluating the performance of their proposed model - ProjE on FB15K dataset \citep{NIPS2013_1cecc7a7}. \citet{Xie_Liu_Jia_Luan_Sun_2016, xie2016representation} also decided to use relation prediction and entity prediction as their two main tasks to evaluate the performance of TKRL and DKRL models in the FB15K dataset. Relation prediction is not the primary task to propose new models in most papers; it was considered an additional task to evaluate with the entity prediction. This observation can also be observed by \citet{chang2020benchmark}.
+
+However, there is a paper (paper 4) that considers relation prediction as their main objective. \citet{cui2021type} utilized description of entity and relation to embedding them and proposed a model - TaRP to embed KG using description. The model was trained on Hits@1 on relation prediction.
+
+\section{Dataset}
+
+\begin{table}[!htbp]
+\centering
+\caption{Dataset in relation prediction papers}
+\label{tab:Dataset in relation prediction papers}
+\resizebox{\textwidth}{!}
+{
+\begin{tabular}{llccc@{}}
+\toprule
+\multicolumn{1}{c}{ID} & \multicolumn{1}{c}{Dataset}                                                    & Entities & Relations & Appeared in \\ \midrule
+1  & FB15k \citep{NIPS2013_1cecc7a7}       & 14,951   & \textbf{1,345} & 9 \\
+2  & FB15k-237 \citep{toutanova-etal-2015-representing}   & 27,395   & 237   & 3 \\
+3  & UMLS \citep{ICML-2007-KokD}       & 135      & 49    & 3 \\
+4  & WN18        & 40   559 & 18    & 2 \\
+5  & WN18RR \citep{dettmers2018conve}     & 40,943   & 11    & 2 \\
+6  & SemMedDB    & 1,6M     & \textbf{117K}  & 1 \\
+7                      & \begin{tabular}[c]{@{}l@{}}SIMPLEQUESTIONS   \\ (facts from FB2M)\end{tabular} & 45,335   & \textbf{1,703}     & 1           \\
+8  & Aristo-v4 \citep{Dalvi2017DomainTargetedHP}  & 44,950   & \textbf{1,605} & 1 \\
+9  & FB40K       & 39,528   & \textbf{1,336} & 1 \\
+10 & FB20K       & 19,923   & \textbf{1,336} & 1 \\
+11 & DB111K-174 \citep{hao2019universal} & 98,336   & 298   & 1 \\
+12 & Nations \citep{ICML-2007-KokD}     & 125      & 57    & 1 \\
+13 & YAGO26K-906 \citep{hao2019universal} & 26,078   & 34    & 1 \\
+14 & Kinships \citep{ICML-2007-KokD}   & 104      & 26    & 1 \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+
+\section{Metrics}
+
+\section{KGE models}
