@@ -2,7 +2,7 @@
 \chapter{Comparative study}
 \label{chap:comparative_study}
 
-In this chapter, we reported on the design and results of our comparative study. We mainly compared the performance of the ComplEx model in different model selection and training objectives, but, in a similar setting. This chapter aims to answer two questions: (1) Does hybrid training improve the performance of a model in relation prediction? (2) What is the effect of using overall MRR instead of entity MRR in model selection.
+In this chapter, we reported on the design and results of our comparative study. We mainly compared the performance of the ComplEx model in different model selection and training objectives, but, in a similar setting. This chapter aims to answer two questions: (1) Does hybrid training improve the performance of a model in relation prediction? (2) What is the effect of using overall MRR instead of entity MRR in model selection?
 
 \section{Experimental setup}
 
@@ -10,7 +10,7 @@ In this chapter, we reported on the design and results of our comparative study.
 \newline
 
 
-\noindent\textbf{Models.} Within the scope of this thesis, we mainly focused on the ComplEx model due to excessive training costs \citep{trouillon2016complex}. Focusing on the ComplEx model, we can directly compare our results with \citet{chen2021relation} and \citet{Ruffinelli2020You}. Furthermore, this model is also one of the most well-known KGE models, besides RESCAL \citep{nickel2011three}, TransE \citep{bordes2013translating}, and DisMult \citep{yang2014embedding}. 
+\noindent\textbf{Models.} Within the scope of this thesis, we mainly focused on the ComplEx model due to excessive training costs \citep{trouillon2016complex}. Focusing on the ComplEx, we can directly compare our results with \citet{chen2021relation} and \citet{Ruffinelli2020You}. Furthermore, this model is also one of the most well-known KGE models, besides RESCAL \citep{nickel2011three}, TransE \citep{bordes2013translating}, and DisMult \citep{yang2014embedding}. 
 % We also tried to run experiments on RotatE \citep{sun2019rotate}, since \citet{sun2019rotate} also considered the embedding vector as a complex vector, the results were reported in Appendix \ref{sec:RotatE performance}. 
 \newline
 
@@ -24,32 +24,33 @@ In this chapter, we reported on the design and results of our comparative study.
 \noindent\textbf{Relation weight.} In their experimental setup, \citet{chen2021relation} searched the weight of relation prediction over set \{0.005, 0.001, 0.05, 0.1, 0.5, 1\} for WN18RR, and for FB15k-237, they searched over set \{0.125, 0.25, 0.5, 1, 2, 4\}. To have only one comprehensive HPC space for both datasets, we combined both sets of weights and searched relation prediction over a closed interval $[0.005, 4.0]$, and we sampled the weights uniformly instead of using a log scale. 
 \newline
 
-\noindent\textbf{Hyperparameters configuration (HPC) space.} Our HPC space bears a close resemblance to the HPC space from \citet{Ruffinelli2020You}. The reason we chose their HPC space is that this hyperparameter space is not excluded from a prior hyperparameter and contains salient points. However, in our searching space, instead of using all three primary training objectives (NegSamp, 1vsAll, and KvsAll), we only focused on 1vsAll, so that we could directly study the effect of hybrid training proposed by \citet{chen2021relation}. Furthermore, embedding vectors were considered a real embedding vectors instead of complex vectors when performing penalty calculations. The details of the HPC space can be found in Table \ref{tab:experimental settings} in Appendix \ref{cha:details of experimental setting}.
+\noindent\textbf{Hyperparameters configuration (HPC) space.} Our HPC space bears a close resemblance to the HPC space from \citet{Ruffinelli2020You}. The reason we chose their HPC space is that this hyperparameter space is not excluded from a prior hyperparameter and contains salient points. However, in our searching space, instead of using all three primary training objectives (NegSamp, 1vsAll, and KvsAll), we only focused on 1vsAll, so that we could directly study the effect of hybrid training proposed by \citet{chen2021relation}. Furthermore, embedding vectors were considered real embedding vectors instead of complex vectors when performing penalty calculations. The details of the HPC space can be found in Table \ref{tab:experimental settings} in Appendix \ref{cha:details of experimental setting}.
 
-We aware that \citet{chen2021relation}'s HPC space could yield better models than \citet{Ruffinelli2020You}'s HPC space in terms of entity ranking. However, due to a lack of resources and time, we had conducted the comparative study simultaneously with reproducibility, therefore the preliminary results from \cite{chen2021relation}'s HPC were discussed in Section \ref{sec: Hybrid training in AKBC HPC space}. Furthermore, we note that the searching space from \cite{chen2021relation} is restricted which could lead to bias, thus, the main focus of this comparative study is the HPC from \cite{Ruffinelli2020You}.
+We aware that \citet{chen2021relation}'s HPC space could yield better models than \citet{Ruffinelli2020You}'s HPC space in terms of entity ranking. However, due to a lack of resources and time, we had conducted the comparative study simultaneously with reproducing study, therefore the preliminary results from \cite{chen2021relation}'s HPC were discussed in Section \ref{sec: Hybrid training in AKBC HPC space}. Furthermore, we note that the searching space from \cite{chen2021relation} is restricted which could lead to bias, thus, the main focus of this comparative study is the HPC from \cite{Ruffinelli2020You}.
 \newline
 
 
-\noindent\textbf{Training.} All models were trained for a maximum of 400 epochs. Models were validated every five epochs on validation and we performed early stopping with a patience of 50 epochs which is similar to the setup of \citet{Ruffinelli2020You}.
+\noindent\textbf{Training.} All models were trained for a maximum of 400 epochs. Models were validated every five epochs on validation and we performed early stopping with patience of 50 epochs which is similar to the setup of \citet{Ruffinelli2020You}.
 \newline
 
 \noindent\textbf{Metrics.} 
-In this thesis, filtered MRR and filtered Hits@\{1, 3, 10\} are metrics used to evaluate the models in relation prediction and entity prediction, so we can be able to compare results with \citet{chen2021relation} and \citet{Ruffinelli2020You}. MR is not adopted, since it is sensitive to outliers \citep{nickel2016holographic}.
+In this thesis, the filtered MRR and the filtered Hits@\{1, 3, 10\} are the main metrics used to evaluate the models in relation prediction and entity prediction, so we can be able to compare results with \citet{chen2021relation} and \citet{Ruffinelli2020You}. The MR is not adopted, since it is sensitive to outliers \citep{nickel2016holographic}.
 \newline
 
-\noindent\textbf{Ranking in relation prediction task.} When applying the reciprocal technique, the number of relations is doubled and the score functions of $(i, k, j)$ and $(j, k, i)$ differs. Therefore given a true triple $(i, k, j)$, we note that two potential answers are depending on the order of subject and object in relation prediction tasks. However, to preserve the validation dataset, we only validated the $(i, ?, j)$ query and ignored the validation for the inverse query $(j, ?, i)$. Furthermore, all relations including the reciprocal relations, are considered during the evaluation protocol. 
+\noindent\textbf{Ranking in relation prediction task.} When applying the reciprocal technique, the number of relations is doubled and the score functions of $(i, k, j)$ and $(j, k, i)$ differs. Therefore, given a true triple $(i, k, j)$, we note that there are two potential answers which depend on the order of subject and object in relation prediction tasks. However, to preserve the validation dataset, we only validated the $(i, ?, j)$ query and ignored the validation for the inverse query $(j, ?, i)$. Furthermore, all the relations including the reciprocal ones are considered during the evaluation protocol. 
 \newline
 
-\noindent\textbf{Model selection.} We studied the effect of model selection on three different MRRs: entity MRR, relation MRR and overall MRR (micro-average of entity and relation MRRs). All of them are filtered MRRs. 
+\noindent\textbf{Model selection.} We studied the effect of model selection on three different MRRs: the entity MRR, the relation MRR and the overall MRR which is micro-average of subject, object and relation MRRs. All of them are filtered MRRs. 
 \newline
 
-
+\noindent\textbf{KGE Framework}: All of the following results were conducted by using the LibKGE. In order to run experiments on LibKGE framework, a new relation mechanism has been implemented, for the details please consult Table \ref{tab:New parameters}.
+\newline
 
 
 \section[Training objectives]{Training objectives: entity, hybrid, and relation training objectives}
 \label{sec:Training objectives}
 
-The effect of three training objectives: entity, hybrid, and relation training objectives to relation prediction performance (i.e., filtered relation MRR) is the main discussion in this section. We selected the best-performance models based on filtered entity MRR. Table \ref{tab:ICLR RP on ER} shows the performance of the best models on relation prediction as well as entity prediction. The performance of model are reported using filtered MRR and filtered Hits@\{1, 3, 10\} 
+The effect of three training objectives: entity, hybrid, and relation training objectives on relation prediction performance (i.e., filtered relation MRR) is the main discussion in this section. We selected the best-performance models based on filtered entity MRR. Table \ref{tab:ICLR RP on ER} shows the performance of the best models on the relation prediction task as well as the entity prediction task. The performance of the models are represented in the filtered MRR and the filtered Hits@\{1, 3, 10\} metrics. 
 
 
 \begin{table}[!htbp]
@@ -67,24 +68,24 @@ WN18RR & Yes & No & 46.9 & 43.8 & 48.0 & 52.7 &  & 76.0 & 66.1 & 80.5 & 99.9 \\
  & No & Yes & 43.6 & 41.2 & 44.5 & 48.0 &  & 63.1 & 49.5 & 71.5 & 82.3 \\ \bottomrule
 \end{tabular}%
 }
-\caption[Model performance in three objectives (selected on entity MRR)]{Model performance in standard, hybrid and relation training objectives on FB15K-237 and WN18RR. The best models were selected on entity MRR. }
+\caption[Model performance in three objectives (selected on entity MRR)]{Model performance in standard, hybrid, and relation training objectives on FB15K-237 and WN18RR. The best models were selected on entity MRR. }
 \label{tab:ICLR RP on ER}
 \end{table}
 
-Interestingly, as evidenced by Table \ref{tab:ICLR RP on ER}, in FB15K-237 dataset, by including negative examples which are obtained by perturbing the relation positions into 1vsAll (i.e., hybrid training objective), the performance of the model in terms of relation prediction was significantly improved. Model trained on hybrid objective achieved relation MRR of 95.4\% which is 4 times higher than model trained on standard objective i.e., relation MRR of 21.8\%. 
+On the FB15K-237 dataset, as evidenced by Table \ref{tab:ICLR RP on ER}, by including negative examples which are obtained by perturbing the relation positions into 1vsAll (i.e., hybrid training objective), the performance of the model in terms of relation prediction was significantly improved. Model trained on hybrid objective achieved relation MRR of 95.4\% which is 4 times higher than model trained on standard objective i.e., relation MRR of 21.8\%. 
 
-However, the effect of hybrid training objective was not observed in WN18RR, the performance of the model trained a hybrid training objective was relation MRR of 67.2\% which is 10\% lower than the relation MRR from model trained with a standard objective i.e., relation MRR of 76.0\%. Furthermore, we observed that training model by hybrid objective lowered the entity MRR from 46.9\% to 46.6\% - 3\% lower.
+However, the effect of the hybrid training objective was not observed on WN18RR data, the performance of the model trained on a hybrid training objective was a relation MRR of 67.2\% which is 10\% lower than the relation MRR of the model trained with a standard objective i.e., relation MRR of 76.0\%. Furthermore, we observed that the training model by hybrid objective lowered the entity MRR from 46.9\% to 46.6\% - 3\% lower.
 
-Table \ref{tab:ICLR RP on ER} additionally shows the models' performances when models were trained using negative relation examples only (relation training objective). By applying relation training objective, the ComplEx model can achieved the relation MRR of 97.2\% which is 2\% higher than the performance of model trained on hybrid training on FB15K-237. However, the performance on entity ranking dropped significantly to 23.7\% on entity MRR from 35.0\%. 
+Table \ref{tab:ICLR RP on ER} additionally shows the models' performances when the models were trained using negative relation examples only (relation training objective). By applying the relation training objective, the ComplEx model can achieve the relation MRR of 97.2\% which is 2\% higher than the performance of the model trained on hybrid training on FB15K-237. However, the performance on entity ranking dropped significantly to 23.7\% on entity MRR from 35.0\%. 
 
-Furthermore, in WN18RR, there was an decrease in relation MRR performance when model trained on relation objective (i.e., from 67.2\% to 63.1\%), the same drop was also observed in entity MRR (from 46.6\% to 43.6\%). This trends were also observed in Hits@\{1, 3, 10\}.
+Furthermore, on WN18RR, there was a decrease in the relation MRR performance when the model was trained on the relation objective (i.e., from 67.2\% to 63.1\%), the same drop was also observed in the entity MRR (from 46.6\% to 43.6\%). These trends were also observed in Hits@\{1, 3, 10\} metrics.
 
 
-One potential explanation for non-improvement when including negative relation examples in WN18RR would be that the dataset contains comparatively a small number of relation $|\mathcal{R}| = 11$ while the number of relation in FB15K-237 $|\mathcal{R}| = 237$. This observation was also reported by \cite{chen2021relation}. They found that hybrid training brings benefits to datasets with a larger number of predicates \citep{chen2021relation}.
+One potential explanation for non-improvement when including negative relation examples in WN18RR would be that the dataset contains comparatively a small number of relation $|\mathcal{R}| = 11$ while the number of relations in FB15K-237 $|\mathcal{R}| = 237$. This observation was also reported by \cite{chen2021relation}. They found that hybrid training brings benefits to datasets with a larger number of predicates \citep{chen2021relation}.
 \newline
  
  
-\noindent\textbf{Relation prediction performance of \cite{chen2021relation}'s models.} The table \ref{tab:AKBC relation prediction} shows the performance of \citet{chen2021relation}'s best models on relation prediction and entity prediction. The results were produced using LibKGE. The table, one again, nicely illustrates the effect of hybrid training objective in relation prediction. 
+\noindent\textbf{Relation prediction performance of \cite{chen2021relation}'s models.} Table \ref{tab:AKBC relation prediction} shows the performance of \citet{chen2021relation}'s best models on relation prediction and entity prediction. The results were produced using the LibKGE framework. The table, once again, nicely illustrates the effect of hybrid training objective in relation prediction. 
 
 
 \begin{table}[!htbp]
@@ -107,13 +108,13 @@ WN18RR    & Yes               & No                  & 48.6          & 44.4      
 \label{tab:AKBC relation prediction}
 \end{table}
 
-There is not only the improvement in entity MRR, the table \ref{tab:AKBC relation prediction} also shows the improvement in relation MRR when model was trained on hybrid training objective. Compared with standard training objective, hybrid model achieved relation MRR of 95.2\% which is 5\% higher than standard model (relation MRR of 90.2\%). 
+There is not only the improvement in entity MRR, the table \ref{tab:AKBC relation prediction} also shows the improvement in relation MRR when the model was trained on hybrid training objective. Compared with the standard training objective, the hybrid model achieved relation MRR of 95.2\% which is 5\% higher than the model trained on standard objective (relation MRR of 90.2\%). 
 
-Although, the hybrid training objective brings benefits to in FB15K-237, however, we also observed a 14\% dropout in WN18RR when we trained model with hybrid training objective (from 76.8\% to 62.9\%). This observation strengthen the point of view that the hybrid training objective can bring improvement in relation MRR to those datasets which have a significant number of predicates.  
+Although, the hybrid training objective brings benefits to FB15K-237, however, we observed a 14\% dropout in WN18RR when we trained model on hybrid training objective (from 76.8\% to 62.9\%). This observation strengthen the point of view that the hybrid training objective can bring improvement in relation MRR to those datasets which have a significant number of predicates.  
 
 Another interesting observation from the \cite{chen2021relation}'s models is that those models trained only on relation training objective could not achieve better results than model trained on hybrid training objective. This observation is contradicted to what we observed in unrestricted HPC space (Table \ref{tab:ICLR RP on ER})
 
-Furthermore, when comparing the performance of hybrid training models found in unrestricted HPC space with \cite{chen2021relation}'s best models (Table \ref{tab:ICLR RP on ER} and \ref{tab:AKBC relation prediction}), we observed that there is no difference between those two model in relation prediction performance. This indicates that \cite{chen2021relation}'s best models is more suitable for entity prediction than relation prediction.
+Furthermore, when comparing the performance of hybrid training models found in unrestricted HPC space with the \cite{chen2021relation}'s best models (Table \ref{tab:ICLR RP on ER} and \ref{tab:AKBC relation prediction}), we observed that there is no difference between those two models in relation prediction performance. This indicates that the \cite{chen2021relation}'s best models are more suitable for entity prediction than relation prediction.
 \newline
 
 
@@ -151,11 +152,11 @@ WN18RR & Yes & No & 46.9 & 76.0 &  & 45.2 & 88.8 \\
 
 As was mentioned in the previous section (section \ref{sec:Training objectives}), the model trained on standard training objective can only achieve 21.8\% of relation MRR. However, as can be seen in Table \ref{tab:ICLR RP on ER vs Hybrid}, without training from scratch, we can obtain a better model in relation prediction (89.4\% in relation MRR) by selecting the best models on overall MRR instead of on entity MRR. Interestingly, this positive effect also can be observed on WN18RR also. The best model can achieve up to relation MRR of 88.8\% instead of 76.0\%. However, there is a trade-off when selecting best-performance models on overall MRR, the model's performance in entity prediction dropped notably by around 2\% on both dataset. 
 
-To overcome that trade-off, as shown in \ref{tab:ICLR RP on ER vs Hybrid}, if we re-train models on hybrid training objective, the drop in entity ranking become smaller, instead of 2\%, now it only about 0.4\%. Furthermore, the model can now even achieve higher relation MRR (96.8\% instead of 95.4\% on FB15K-237). 
+To overcome that trade-off, as shown in \ref{tab:ICLR RP on ER vs Hybrid}, if we re-train models on hybrid training objective, the drop in entity ranking become smaller, instead of 2\%, now it is only about 0.4\%. Furthermore, the model can now even achieve higher relation MRR (96.8\% instead of 95.4\% on FB15K-237). 
 
-Unfortunately, that trend was not observed on WN18RR. We still observe the non-improvement even if we select a model based on overall MRR. The performance reduce from 88.8\% to 80.8\% along with the reduce in entity ranking performance also from 45.2\% ti 42.6\%
+Unfortunately, that trend was not observed on WN18RR. We still observe the non-improvement even if we select a model based on overall MRR. The performance reduce from 88.8\% to 80.8\% along the reduce in entity ranking performance also from 45.2\% to 42.6\%
 
-Based on those observations, we can conclude that the model selection positively affect the model's performance if the model is trained on a hybrid training objective on unrestricted HPC space. 
+Based on those observations, we can conclude that the model selection positively affects the model's performance if a model is trained on hybrid training objective on unrestricted HPC space. 
 \newline
 
 \noindent\textbf{Relation MRR}: It is easy to see from Table \ref{tab:ICLR RP on ER vs Hybrid vs relation}, selecting a model on relation MRR brings better performance on relation prediction, but, at the same time, the models underperformed on entity prediction.  
@@ -189,9 +190,9 @@ WN18RR & Yes & No & 46.9 & 76.0 &  & 45.2 & 88.8 &  & 45.6 & 89.4 \\
 Due to the restricted time for a master thesis, we conducted the comparative study simultaneously with the reproducing phase (Chapter \ref{chap:reproducibility}). Therefore, the awareness about reciprocal techniques and the difference in L3 implementation were absent on the time this experiment conducted. Thus, we studied the \cite{chen2021relation}'s HPC space without applying the reciprocal technique. Furthermore, when calculate the regularization for embedding, we consider embedding vectors as real vector. i.e., the vectors in real vector space.   
 \newline
 
-\noindent\textbf{Semi-restricted HPC space.} We would like to call this HPC space is semi-restricted HPC space due to the following restrictions. To imitate the \cite{chen2021relation}'s HPC space, we use Adagrad as optimizer, learning rate without log scale, and normal distribution as embedding initialization methods with $\mu=0$ and $\sigma=0.001$. Additionally, penalty for the embedding of an object is weighted by the object's frequency in the training data i.e., the frequency weighting is true. For another hyperparameters, we keep them as same as values in \citet{Ruffinelli2020You}'s HPC space such as learning scheduler, the number of epochs and the early-stopping criteria (see Table \ref{tab:experimental settings} in Appendix \ref{cha:details of experimental setting} for details).  
+\noindent\textbf{Semi-restricted HPC space.} We would like to call this HPC space is semi-restricted HPC space due to the following restrictions. To imitate the \cite{chen2021relation}'s HPC space, we use Adagrad as optimizer, learning rate without log scale, and normal distribution as embedding initialization methods with $\mu=0$ and $\sigma=0.001$. Additionally, penalty for the embedding of an object is weighted by the object's frequency in the training data i.e., the frequency weighting is true. For another hyperparameters, we keep them as same as values in \citet{Ruffinelli2020You}'s HPC space such as learning scheduler, the number of epochs and the early-stopping criteria (see Table \ref{tab:experimental settings} in Appendix \ref{cha:details of experimental setting} for more details).  
 
-For important hyperparameters, we merged the values from \citet{Ruffinelli2020You}'s HPC space and values from \cite{chen2021relation}'s HPC space together. Furthermore, the searching range for relation weight is enlarged from $[0.005, 4.0]$ to $[0.1, 8.0]$. Table \ref{tab:Searching space to find AKBC} shows the values for important hyperparameters. This is also the HPC space that we used to find \citet{chen2021relation}'s best models (in section \ref{sec:Similarly setting}) and we also unitized this HPC space to study impact of hybrid training on larger embedding size.
+For the important hyperparameters, we merged the values from \citet{Ruffinelli2020You}'s HPC space and values from \cite{chen2021relation}'s HPC space together. Furthermore, the searching range for relation weight is enlarged from $[0.005, 4.0]$ to $[0.1, 8.0]$. Table \ref{tab:Searching space to find AKBC} shows the values for important hyperparameters. This is also the HPC space that we used to find \citet{chen2021relation}'s best models (in section \ref{sec:Similarly setting}) and we also unitized this HPC space to study impact of hybrid training on larger embedding size.
 
 
 \begin{table}[!htbp]
@@ -209,22 +210,22 @@ WN18RR & Yes & No & 47.9 & 83.7 &  & 48.0 & 83.9 &  & 48.1 & 84.8 \\
  & No & Yes & 45.8 & 80.9 &  & 45.2 & 87.8 &  & 40.0 & 89.2 \\ \bottomrule
 \end{tabular}%
 }
-\caption[Model performance in three training objectives on semi-restricted HPC space (selected on entity, overall and relation MRRs)]{Model performance in three training objectives on semi-restricted HPC space. \textit{Selected on entity MRR:} The best models were selected based on models' performance in entity MRR metric.
-\textit{Selected on overall MRR:} The best models were selected based on models' performance in overall MRR metric. \textit{Selected on relation MRR:} The best models were selected based on models' performance in relation MRR metric. (for other metrics, see Table \ref{tab:Full AKBC results})}
+\caption[Model performance in three training objectives on semi-restricted HPC space (selected on the entity, overall, and relation MRRs)]{Model performance in three training objectives on semi-restricted HPC space. \textit{Selected on entity MRR:} The best models were selected based on models' performance in the entity MRR metric.
+\textit{Selected on overall MRR:} The best models were selected based on models' performance in the overall MRR metric. \textit{Selected in relation MRR:} The best models were selected based on models' performance in relation MRR metric. (for other metrics, see Table \ref{tab:Full AKBC results})}
 \label{tab:Semi-retricted HPC results}
 \end{table}
 
 
 Table \ref{tab:Semi-retricted HPC results} illustrates the benefit of using hybrid training objective which are consistent with previous results illustrated in Table \ref{tab:Semi-retricted HPC results} and Table \ref{tab:ICLR RP on ER vs Hybrid vs relation}. Surprisingly, on this semi-restricted HPC space, the effect of model selection is not observed anymore. 
 
-We can clearly observe that the performance of models on entity and relation prediction are consistent regardless of model selection. When we trained model on hybrid training objective on FB15K-237, model can achieve 37.3\% entity MRR and 97.9\% relation MRR which are higher than entity MRR and relation MRR standard model can achieve (36.6\% and 94.7\% resp.).  
+We can clearly observe that the performance of models on entity and relation prediction are consistent regardless of model selection. When we trained a model on hybrid training objective on FB15K-237, the model can achieve 37.3\% entity MRR and 97.9\% relation MRR which are higher than entity MRR and relation MRR standard model can achieve (36.6\% and 94.7\% resp.).  
 
 Unsurprisingly, by comparing Table \ref{tab:Semi-retricted HPC results} and Table \ref{tab:ICLR RP on ER vs Hybrid vs relation}, the semi-restricted HPC space yield better models than unrestricted HPC space (i.e., the HPC space from \cite{Ruffinelli2020You}).
 
 
 
 \section{Conclusion}
-Our comparative study has led us to conclude that hybrid training objective could bring a positive effect to ComplEx model not only on predicting entity but also relation prediction. Furthermore, model selection could become handy for ComplEx mode to obtain better model on relation prediction without training from scratch.  
+Our comparative study has led us to conclude that hybrid training objective could bring a positive effect to ComplEx model not only on predicting entity but also relation prediction. Furthermore, model selection could become handy to find the model trained on standard objective that can work well on both relation and entity prediction tasks without retraining from scratch.  
 
 % The model should be trained on a hybrid training objective to achieve good performance on entity ranking and relation prediction. The performance of the model on test data was reported in Table \ref{tab:Final results}
 

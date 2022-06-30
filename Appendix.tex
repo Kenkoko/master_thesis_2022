@@ -17,6 +17,41 @@ The source code, are available at my personal repository in branch "second\_mile
 
 \quad https://github.com/Kenkoko/config\_files
 
+\section{New parameters}
+ 
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lccl@{}}
+\toprule
+\textbf{Parameter} & \textbf{Potential Values} & \textbf{Default value} & \textbf{Purpose} \\ \midrule
+entity\_ranking &  &  &  \\
+\quad query\_types &  &  &  \\
+\quad \quad sp\_to\_o & \{True, False\} & True & Report object prediction \\
+\quad \quad po\_to\_s & \{True, False\} & True & Report subject prediction \\
+\quad \quad so\_to\_p & \{True, False\} & False & Report relation prediction \\
+1vsAll &  &  &  \\
+\quad query\_types &  &  &  \\
+\quad \quad sp\_ & \{True, False\} & True & Train on object prediction \\
+\quad \quad po\_ & \{True, False\} & True & Train on subject prediction \\
+\quad \quad so\_ & \{True, False\} & False & Train on relation prediction \\
+\quad query\_weight &  &  &  \\
+\quad \quad sp\_ & Close interval, value(s) & 1 & Set weight for object pred \\
+\quad \quad po\_ & Close interval, value(s) & 1 & Set weight for subject pred \\
+\quad \quad so\_ & Close interval, value(s) & 1 & Set weight for relation pred \\
+eval &  &  &  \\
+\quad metrics\_per &  &  &  \\
+\quad \quad relation\_prediction & \{True, False\} & False & Report relation prediction \\ \bottomrule
+\end{tabular}%
+}
+\caption{New parameters has been implemented for this study}
+\label{tab:New parameters}
+\end{table}
+
+
 \chapter{Details of experimental setting}
 \label{cha:details of experimental setting}
 

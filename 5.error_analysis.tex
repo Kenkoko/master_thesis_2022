@@ -1,5 +1,5 @@
 \chapter{Error Analysis}
-
+\label{cha:Error Analysis}
 In this chapter, in an attempt to determine the limitation of the model trained on the standard training objective and improvements that hybrid training brings to relation prediction, we will mainly study the best models trained on hybrid and standard training objectives only. The models that we examined are from the unrestricted HPC space. We note that semi-unrestricted HPC space yielded better models; however, we have not fully explored that HPC space. Therefore, future work should concentrate on that HPC space.
 
 Additionally, we only examine the best models selected based on entity MRR and overall MRR. Those two model selection methods are chosen because we can find the best performance on relation and entity prediction using those two. We could not ignore the importance of entity prediction, although the thesis is about relation prediction. 
@@ -80,7 +80,7 @@ Table \ref{tab:standard entity model examples} shows three examples of ranking r
  & \quad /film/film/estimated\_budget./measurement\_unit/dated\_money\_value/currency &  & 3 & M-1 \\ \bottomrule
 \end{tabular}%
 }
-\caption[Prediction examples from standard entity model.]{Prediction examples from standard entity model. The relations on the top of each box are the true relations while the remain ones are the predicted relation. \textit{Joe Hisaishi was truly born in Nagono and Arnold Schoenberg was also truly born in Veinna, however, those information was not captured in FB15K-237.}}
+\caption[Prediction examples from standard entity model.]{Prediction examples from standard entity model. The first relations on the top of each box are the true relations while the remain ones are the predicted relation. \textit{Joe Hisaishi was born in Nagono and Arnold Schoenberg was also born in Veinna, however, those information was not captured in FB15K-237, so those triples are considered to be negative triples in this study.}}
 \label{tab:standard entity model examples}
 \end{table}
 
@@ -172,7 +172,7 @@ Austria & /base/aareas/schema/administrative\_area/capital & Vienna & 4 & 1-1 \\
  & \quad /location/hud\_county\_place/place &  & 3 & 1-1 \\ \bottomrule
 \end{tabular}%
 }
-\caption[Prediction examples from standard overall model.]{Prediction examples from standard overall model. The relations on the top of each box are the true relations while the remain ones are the predicted relation.}
+\caption[Prediction examples from standard overall model.]{Prediction examples from standard overall model. The first relations on the top of each box are the true relations while the remain ones are the predicted relation.}
 \label{tab:standard overall model example}
 \end{table}
 
@@ -226,7 +226,7 @@ Syria & /sports/sports\_team\_location/teams & \multirow{4}{*}{\begin{tabular}[c
  & \quad /location/location/contains &  & 3 & M-N \\ \bottomrule
 \end{tabular}%
 }
-\caption[Prediction examples from hybrid overall model.]{Prediction examples from hybrid overall model. The relations on the top of each box are the true relations while the remain ones are the predicted relation.}
+\caption[Prediction examples from hybrid overall model.]{Prediction examples from hybrid overall model. The first relations on the top of each box are the true relations while the remain ones are the predicted relation.}
 \label{tab:hybrid overall model example}
 \end{table}
 
