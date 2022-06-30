@@ -9,18 +9,111 @@ The source code, a documentation, some usage examples, and additional test resul
 
 They as well as a PDF version of this thesis is also contained on the CD-ROM attached to this thesis.
 
+\chapter{Details of experimental setting}
+\label{cha:details of experimental setting}
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Hyperparameter} & \textbf{Unrestricted search} & \textbf{Semi-restricted search} \\ \midrule
+Embedding size & \{128, 256, 512\} & \{256, 512, 1024, 2048\} \\
+Training type & 1vsAll & 1vsAll \\
+\quad Reciprocal & \{True, False\} & False \\
+Loss & CE & CE \\
+Optimizer & \{Adam, Adagrad\} & Adagrad \\
+\quad Batch size & \{128, 256, 512, 1024\} & \{128, 256, 512, 1024\} \\
+\quad Learning rate & {[}3.0e-3, 1.0{]}, log scale & {[}3.0e-3, 1.0{]} \\
+\quad LR scheduler patience & {[}0, 10{]} & {[}0, 10{]} \\
+$L_p$ regularization & \{L1, L2, L3, None\} & \{L1, L2, L3, None\} \\
+\quad Entity emb. weight & {[}10-20, 10-5{]} & {[}10e-20, 1.0{]} \\
+\quad Relation emb. weight & {[}10-20, 10-5{]} & {[}10e-20, 1.0{]} \\
+\quad Frequency weighting & \{True, False\} & True \\
+Dropout &  &  \\
+\quad Entity embedding & {[}-0.5, 0.5{]} & {[}-0.5, 0.5{]} \\
+\quad Relation embedding & {[}-0.5, 0.5{]} & {[}-0.5, 0.5{]} \\
+Embedding initialization & \{Normal, Unif, XvNorm, XvUnif\} & Normal \\
+\quad Std. deviation (Normal) & {[}1.0e-5, 1:0{]} & 0.001 \\
+\quad Interval (Unif) & {[}-1.0, -1.0e-4{]} &  \\
+\quad Gain (XvNorm) & 1.0 &  \\
+\quad Gain (XvUnif) & 1.0 &  \\
+Relation prediction weight & {[}0.005, 4.0{]} & {[}0.1, 8.0{]} \\ \bottomrule
+\end{tabular}%
+}
+\caption{Hyperparameter search space used in our study.}
+\label{tab:experimental settings}
+\end{table}
+
+
 \chapter{Further Experimental Results}
 \label{cha:appendix-b}
 
-In the following further experimental results are ...
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{table}[!h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lllllllllllll@{}}
+    \toprule
+     &  &  &  & \multicolumn{4}{c}{\textbf{Entity prediction}} &  & \multicolumn{4}{c}{\textbf{Relation prediction}} \\ \cmidrule(lr){5-8} \cmidrule(l){10-13} 
+    \textbf{Selected on} & \textbf{Dataset} & \textbf{Entity} & \textbf{Relation} & \textbf{MRR} & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@10} &  & \textbf{MRR} & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@10} \\ \midrule
+    Entity MRR & FB15K-237 & Yes & No & 35.2 & 26.4 & 38.5 & 52.7 &  & 21.8 & 09.8 & 17.3 & 58.1 \\
+     &  & Yes & Yes & 35.0 & 26.0 & 38.4 & 52.9 &  & 95.4 & 93.6 & 96.9 & 98.3 \\
+     &  & No & Yes & 23.7 & 16.7 & 25.6 & 37.9 &  & 97.2 & 95.6 & 98.9 & 99.6 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 46.9 & 43.8 & 48.0 & 52.7 &  & 76.0 & 66.1 & 80.5 & 99.9 \\
+     &  & Yes & Yes & 46.6 & 43.3 & 48.4 & 52.6 &  & 67.2 & 54.5 & 75.4 & 85.9 \\
+     &  & No & Yes & 43.6 & 41.2 & 44.5 & 48.0 &  & 63.1 & 49.5 & 71.5 & 82.3 \\ \midrule \midrule
+    Overall MRR & FB15K-237 & Yes & No & 33.5 & 24.8 & 36.5 & 51.4 &  & 89.4 & 85.7 & 91.7 & 96.7 \\
+     &  & Yes & Yes & 34.6 & 25.8 & 37.6 & 52.3 &  & 96.8 & 95.3 & 98.2 & 99.2 \\
+     &  & No & Yes & 24.0 & 17.1 & 25.8 & 38.0 &  & 97.4 & 95.8 & 98.8 & 99.5 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 45.7 & 43.2 & 46.4 & 50.4 &  & 76.0 & 66.1 & 80.5 & 99.9 \\
+     &  & Yes & Yes & 45.0 & 42.0 & 46.1 & 50.9 &  & 67.2 & 54.5 & 75.4 & 85.9 \\
+     &  & No & Yes & 43.4 & 40.7 & 44.6 & 48.4 &  & 63.1 & 49.5 & 71.5 & 82.3 \\ \midrule \midrule
+    Relation MRR & FB15K-237 & Yes & No & 30.9 & 22.8 & 33.7 & 47.2 &  & 92.9 & 90.5 & 94.7 & 97.5 \\
+     &  & Yes & Yes & 32.0 & 23.6 & 34.9 & 48.9 &  & 97.3 & 95.8 & 98.8 & 99.5 \\
+     &  & No & Yes & 17.9 & 12.1 & 18.6 & 29.6 &  & 97.8 & 96.3 & 99.2 & 99.8 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 45.6 & 43.2 & 46.4 & 50.4 &  & 89.4 & 82.3 & 96.3 & 1.000 \\
+     &  & Yes & Yes & 40.0 & 36.7 & 41.5 & 45.8 &  & 89.3 & 82.9 & 95.1 & 1.000 \\
+     &  & No & Yes & 02.1 & 01.0 & 02.0 & 03.9 &  & 90.8 & 84.4 & 97.0 & 1.000 \\ \bottomrule
+    \end{tabular}%
+    }
+    \caption{Performance of models on unrestricted HPC space.}
+    \label{tab:Full ICLR results}
+    \end{table}
 
 
-\chapter{AKBC code base}
-\label{cha:appendix-b}
-
-\section{Reciprocal dataset}
-\label{sec:AKBC Reciprocal dataset}
-
-In the following further experimental results are ...
-
-\newpage
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{table}[!ht]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lllllllllllll@{}}
+    \toprule
+    \textbf{} & \textbf{} & \textbf{} & \textbf{} & \multicolumn{4}{c}{\textbf{Entity prediction}} &  & \multicolumn{4}{c}{\textbf{Relation prediction}} \\ \cmidrule(lr){5-8} \cmidrule(l){10-13} 
+    \textbf{Selected on} & \textbf{Dataset} & \textbf{Entity} & \textbf{Relation} & \textbf{MRR} & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@10} & \textbf{} & \textbf{MRR} & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@10} \\ \midrule
+    Entity MRR & FB15K-237 & Yes & No & 36.6 & 27.4 & 40.0 & 55.1 &  & 94.7 & 92.1 & 96.8 & 98.9 \\
+     &  & Yes & Yes & 37.3 & 28.2 & 41.0 & 55.5 &  & 97.9 & 96.6 & 99.3 & 99.7 \\
+     &  & No & Yes & 25.8 & 18.6 & 28.0 & 40.3 &  & 96.2 & 94.4 & 97.9 & 98.9 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 47.9 & 44.1 & 49.2 & 55.6 &  & 83.7 & 77.3 & 87.0 & 98.7 \\
+     &  & Yes & Yes & 48.1 & 44.3 & 49.4 & 55.4 &  & 86.0 & 80.3 & 89.2 & 99.0 \\
+     &  & No & Yes & 45.8 & 42.3 & 47.3 & 52.6 &  & 80.9 & 74.9 & 83.1 & 97.1 \\ \midrule \midrule
+    Overall MRR & FB15K-237 & Yes & No & 36.5 & 27.3 & 40.0 & 55.0 &  & 94.9 & 92.4 & 96.9 & 99.0 \\
+     &  & Yes & Yes & 37.1 & 27.9 & 41.0 & 55.5 &  & 98.0 & 96.7 & 99.3 & 99.7 \\
+     &  & No & Yes & 25.8 & 18.5 & 28.0 & 40.4 &  & 96.4 & 94.7 & 98.0 & 99.1 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 48.0 & 44.2 & 48.9 & 55.7 &  & 83.9 & 77.2 & 88.2 & 99.1 \\
+     &  & Yes & Yes & 48.1 & 44.1 & 49.4 & 55.8 &  & 86.1 & 80.9 & 88.4 & 98.8 \\
+     &  & No & Yes & 45.2 & 41.4 & 46.9 & 52.1 &  & 87.8 & 83.0 & 90.6 & 97.6 \\ \midrule \midrule
+    Relation MRR & FB15K-237 & Yes & No & 35.5 & 26.2 & 38.8 & 54.4 &  & 95.0 & 92.5 & 97.2 & 99.0 \\
+     &  & Yes & Yes & 36.5 & 27.3 & 40.0 & 54.6 &  & 98.0 & 96.7 & 99.3 & 99.7 \\
+     &  & No & Yes & 17.3 & 10.9 & 18.2 & 30.2 &  & 97.8 & 96.3 & 99.2 & 99.8 \\ \cmidrule(l){2-13} 
+     & WN18RR & Yes & No & 48.1 & 44.1 & 49.4 & 56.2 &  & 84.8 & 78.4 & 88.5 & 99.5 \\
+     &  & Yes & Yes & 36.3 & 34.9 & 36.8 & 38.7 &  & 90.2 & 83.9 & 95.8 & 1.000 \\
+     &  & No & Yes & 40.0 & 35.8 & 42.2 & 47.6 &  & 89.2 & 84.8 & 91.5 & 98.6 \\ \bottomrule
+    \end{tabular}%
+    }
+    \caption{Performance of models on semi-restricted HPC space.}
+    \label{tab:Full AKBC results}
+    \end{table}
